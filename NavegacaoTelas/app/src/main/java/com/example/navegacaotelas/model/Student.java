@@ -11,9 +11,10 @@ public class Student {
         this.name = "";
         this.register = "";
         this.cpf = "";
+        this .id = 0;
     }
 
-    public Student(String name, String register, String cpf, int id) {
+    public Student(String name, String register, String cpf, int id ) {
         this.name = name;
         this.register = register;
         this.cpf = cpf;
@@ -22,10 +23,6 @@ public class Student {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.navegacaotelas.model.Student;
@@ -26,15 +27,15 @@ public class ActivityListStudent extends AppCompatActivity {
     public static ArrayAdapter adapter;
     public static ListView listview;
 
-    EditText edtIndex;
+    TextView txtIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_student);
 
-        edtIndex = (EditText) findViewById(R.id.edtIndex);
-        edtIndex.setText("");
+        txtIndex = (TextView) findViewById(R.id.edtIndex);
+        txtIndex.setText("");
         index = -1;
 
         listStudent = new ArrayList<>();
@@ -49,7 +50,8 @@ public class ActivityListStudent extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(ActivityListStudent.this, ""+listStudent.get(i).toString(), Toast.LENGTH_SHORT).show();
                 index = i;
-                edtIndex.setText("Nome: "+listStudent.get(i).getName().toString()+" Matricula: "+listStudent.get(i).getRegister().toString());
+                txtIndex.setText("Identificador: "+listStudent.get(i).getId() +
+                        " Nome: "+listStudent.get(i).getName().toString());
             }
         });
     }
@@ -64,9 +66,11 @@ public class ActivityListStudent extends AppCompatActivity {
                 String register = (String) data.getExtras().get("register");
                 String cpf = (String) data.getExtras().get("cpf");
 
-                listStudent.add(new Student(name, register, cpf, index+1));
+                listStudent.add(new Student(name, register, cpf, listStudent.size()+1));
+
                 adapter.notifyDataSetChanged();
-                edtIndex.setText("");
+
+                txtIndex.setText("");
                 index = -1;
             }
         }else if(requestCode == request_edit && resultCode == ActivityEditList.result_save){
@@ -74,12 +78,15 @@ public class ActivityListStudent extends AppCompatActivity {
                 String name = (String) data.getExtras().get("name");
                 String register = (String) data.getExtras().get("register");
                 String cpf = (String) data.getExtras().get("cpf");
-                int i = Integer.parseInt((String) data.getExtras().get("i"));
+                String id = (String) data.getExtras().get("id");
+                index = Integer.parseInt(id)-1;
 
-                listStudent.add(i, new Student(name,register,cpf,i));
-                listStudent.remove(i+1);
+                listStudent.add(index, new Student(name,register,cpf, index+1));
+                listStudent.remove(index+1);
+
                 adapter.notifyDataSetChanged();
-                edtIndex.setText("");
+
+                txtIndex.setText("");
                 index = -1;
             }
         }else{
@@ -93,24 +100,25 @@ public class ActivityListStudent extends AppCompatActivity {
     }
 
     public void clickBtnEdt(View view) {
-        if(!edtIndex.getText().equals("")){
+        if(index == -1){
+            Toast.makeText(ActivityListStudent.this, "Selecione um aluno para editar", Toast.LENGTH_SHORT).show();
+        }else{
             Intent intent = new Intent(this, ActivityEditList.class);
 
+            int i = listStudent.get(index).getId();
             String name = listStudent.get(index).getName();
             String register = listStudent.get(index).getRegister();
             String cpf = listStudent.get(index).getCpf();
-            String i = Integer.toString(index);
+            String id = Integer.toString(i);
 
             intent.putExtra("name", name);
             intent.putExtra("register", register);
             intent.putExtra("cpf", cpf);
-            intent.putExtra("i", i);
+            intent.putExtra("id", id);
 
             startActivityForResult(intent, request_edit);
-        }else{
-            Toast.makeText(ActivityListStudent.this, "Selecione um aluno para editar", Toast.LENGTH_SHORT).show();
-        }
 
+        }
     }
 }
 

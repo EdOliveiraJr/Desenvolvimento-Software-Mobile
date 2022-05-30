@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.navegacaotelas.model.Student;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 public class ActivityEditList extends AppCompatActivity {
     public static int result_save = 1;
     public static int result_cancel = 2;
-    int index = -1;
 
     EditText edtName;
     EditText edtRegister;
     EditText edtCPF;
+    TextView txtID;
 
 
     @Override
@@ -32,16 +33,19 @@ public class ActivityEditList extends AppCompatActivity {
         edtName = findViewById(R.id.edtName);
         edtRegister = findViewById(R.id.edtRegister);
         edtCPF = findViewById(R.id.edtCPF);
+        txtID = findViewById(R.id.txtID);
 
         if(getIntent().getExtras() != null){
             String name = (String) getIntent().getExtras().get("name");
             String register = (String) getIntent().getExtras().get("register");
             String cpf = (String) getIntent().getExtras().get("cpf");
-            String i = (String) getIntent().getExtras().get("i");
+            String id = (String) getIntent().getExtras().get("id");
+
             edtName.setText(name);
             edtRegister.setText(register);
             edtCPF.setText(cpf);
-            index = Integer.parseInt(i);
+            txtID.setText(id);
+
         }
 
     }
@@ -54,12 +58,12 @@ public class ActivityEditList extends AppCompatActivity {
         String name = edtName.getText().toString();
         String register = edtRegister.getText().toString();
         String cpf = edtCPF.getText().toString();
-        String i =  Integer.toString(index);
+        String id =  txtID.getText().toString();
 
         intent.putExtra("name", name);
         intent.putExtra("register", register);
         intent.putExtra("cpf", cpf);
-        intent.putExtra("i", i);
+        intent.putExtra("id", id);
 
         setResult(result_save, intent);
         finish();

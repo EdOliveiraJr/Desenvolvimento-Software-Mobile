@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/layout/activity_edit_list.xml" value="0.33" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/layout/activity_list_student.xml" value="0.25" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/layout/activity_main.xml" value="0.131640625" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas - Copia/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.184" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas/app/src/main/res/layout/activity_activitty_list_students.xml" value="0.2416871921182266" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas/app/src/main/res/layout/activity_edit_list.xml" value="0.22" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/NavegacaoTelas/app/src/main/res/layout/activity_list_student.xml" value="0.25" />
