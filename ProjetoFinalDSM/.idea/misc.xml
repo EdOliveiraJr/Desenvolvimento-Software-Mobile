@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/JR/AndroidStudioProjects/Desenvolvimento-Software-Mobile/ProjetoFinalDSM/app/src/main/res/layout/activity_add_edit_box.xml" value="0.25" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/Desenvolvimento-Software-Mobile/ProjetoFinalDSM/app/src/main/res/layout/activity_list_item.xml" value="0.18125" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/Desenvolvimento-Software-Mobile/ProjetoFinalDSM/app/src/main/res/layout/activity_main.xml" value="0.2758152173913043" />
+        <entry key="..\:/Users/JR/AndroidStudioProjects/Desenvolvimento-Software-Mobile/ProjetoFinalDSM/app/src/main/res/layout/activity_main2.xml" value="0.33" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/ProjetoFinalDSM/app/src/main/res/drawable-anydpi/ic_action_add.xml" value="0.1895" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/ProjetoFinalDSM/app/src/main/res/drawable-anydpi/ic_action_delete.xml" value="0.1895" />
         <entry key="..\:/Users/JR/AndroidStudioProjects/ProjetoFinalDSM/app/src/main/res/drawable-anydpi/ic_action_edit.xml" value="0.1895" />

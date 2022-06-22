@@ -41,8 +41,8 @@ public class Box {
         return listItem;
     }
 
-    public void setListItem(ArrayList<Item> listItem) {
-        this.listItem = listItem;
+    public void setItemBox(Item item) {
+        listItem.add(item);
     }
 
     public void setPrice(ArrayList<Item> listItem){
@@ -56,6 +56,8 @@ public class Box {
     public Double getPrice(){
         return price;
     }
+
+
 
     @Override
     public String toString() {
