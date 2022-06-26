@@ -26,8 +26,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
+            <TextView
+                android:id="@+id/txtId_ActAddEdtItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -106,7 +106,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Insira o preço"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -135,6 +135,17 @@
                 android:text="Cancel"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/ListViewItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
