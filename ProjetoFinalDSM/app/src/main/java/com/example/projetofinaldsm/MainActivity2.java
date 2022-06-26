@@ -189,6 +189,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void btnAbout(){
-        // TODO: 26/06/2022  
+        Intent intent = new Intent(this, ActivityAbout.class);
+        startActivity(intent);
+
     }
 }

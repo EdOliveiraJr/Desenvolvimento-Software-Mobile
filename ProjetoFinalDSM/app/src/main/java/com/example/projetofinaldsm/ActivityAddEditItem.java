@@ -38,7 +38,7 @@ public class ActivityAddEditItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit);
+        setContentView(R.layout.activity_add_edit_item);
 
         txtID = findViewById(R.id.txtId_ActAddEdtItem);
         edtName = findViewById(R.id.edtNameItem);
@@ -141,7 +141,9 @@ public class ActivityAddEditItem extends AppCompatActivity {
     }
 
     public void btnAboutItem(){
-        // TODO: 26/06/2022
+        Intent intent = new Intent(this, ActivityAbout.class);
+        startActivity(intent);
+
     }
 
     public void btnSaveItem(View view){

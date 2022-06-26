@@ -129,7 +129,9 @@ public class ActivityAddEditBox extends AppCompatActivity {
     }
 
     public void btnAboutBox(){
-        // TODO: 26/06/2022
+        Intent intent = new Intent(this, ActivityAbout.class);
+        startActivity(intent);
+
     }
 
     public void btnSaveBox(View view) {
