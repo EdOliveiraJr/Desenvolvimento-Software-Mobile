@@ -23,8 +23,8 @@ import java.sql.Array;
 import java.util.ArrayList;
 
 public class ActivityAddEditBox extends AppCompatActivity {
-    public static int clickInSave = 5;
-    public static int clickInCancel = 6;
+    public static int clickInSave = 6;
+    public static int clickInCancel = 7;
 
     public static RepositoryListBox  repositoryListBox;
     public static ArrayList<Box> listBox;

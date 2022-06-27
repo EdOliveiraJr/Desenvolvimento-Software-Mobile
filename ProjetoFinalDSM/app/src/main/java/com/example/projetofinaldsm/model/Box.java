@@ -61,11 +61,10 @@ public class Box {
 
     @Override
     public String toString() {
-        return "Box{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", ListItem=" + listItem +
-                '}';
+        return "Box:" +
+                "\nid=" + id +
+                "\n name='" + name + '\'' +
+                "\n description='" + description + '\'' +
+                "\n ListItem=" + listItem;
     }
 }

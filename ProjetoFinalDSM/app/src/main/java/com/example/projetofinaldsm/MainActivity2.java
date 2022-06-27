@@ -16,27 +16,35 @@ import android.widget.Toast;
 
 import com.example.projetofinaldsm.model.Box;
 import com.example.projetofinaldsm.model.Item;
+import com.example.projetofinaldsm.model.Order;
 import com.example.projetofinaldsm.repository.RepositoryListBox;
 import com.example.projetofinaldsm.repository.RepositoryListItem;
+import com.example.projetofinaldsm.repository.RepositoryListOrder;
 
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
     public static int clickInItem = 1;
     public static int clickInBox = 2;
-    public static int clickInAdd = 3;
-    public static int clickInEdit = 4;
+    public static int clickInOrder = 3;
+    public static int clickInAdd = 4;
+    public static int clickInEdit = 5;
+
 
     private int typeList;
 
     public static int index;
     public RepositoryListItem repositoryListItem;
     public RepositoryListBox repositoryListBox;
+    public RepositoryListOrder repositoryListOrder;
+    public static ArrayList<Order> listOrder;
     public static ArrayList<Box> listBox;
     public static ArrayList<Item> listItem;
 
     public static ArrayAdapter adapterItem;
     public static ArrayAdapter adapterBox;
+    public static ArrayAdapter adapterOrder;
+
     public static ListView listView;
 
     @Override
@@ -48,18 +56,17 @@ public class MainActivity2 extends AppCompatActivity {
 
         listBox = new ArrayList<>();
         listItem = new ArrayList<>();
+        listOrder = new ArrayList<>();
+
+        repositoryListOrder = new RepositoryListOrder();
         repositoryListItem = new RepositoryListItem();
         repositoryListBox = new RepositoryListBox();
 
         adapterItem = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItem);
-
         adapterBox = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listBox);
-
-//        listViewItem = (ListView) findViewById(R.id.listViewItemMain2);
-//        listViewBox = (ListView) findViewById(R.id.listViewBoxMain2);
+        adapterOrder = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listOrder);
 
         listView = (ListView) findViewById(R.id.listViewBoxMain2);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +80,14 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MainActivity2.this, ""+listBox.get(i).toString(), Toast.LENGTH_SHORT);
+                index = i;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity2.this, ""+listOrder.get(i).toString(), Toast.LENGTH_SHORT);
                 index = i;
             }
         });
@@ -120,6 +135,11 @@ public class MainActivity2 extends AppCompatActivity {
             repositoryListBox = ActivityAddEditBox.repositoryListBox;
             listBox.clear();
             listBox.addAll(repositoryListBox.getListBox());
+
+        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditOrder.clickInSave){
+            repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
+            listOrder.clear();
+            listOrder.addAll(repositoryListOrder.getListOrder());
         }
     }
 
@@ -159,12 +179,31 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
+    public void btnOrder(View view) {
+        if(listBox.isEmpty()) {
+            this.typeList = clickInOrder;
+        }else{
+            this.typeList = clickInOrder;
+            listView.setAdapter(adapterOrder);
+            listView.setSelector(android.R.color.holo_orange_dark);
+            adapterOrder.notifyDataSetChanged();
+//
+//            repositoryListBox = ActivityAddEditBox.repositoryListBox;
+//            listBox.clear();
+//            listBox.addAll(repositoryListBox.getListBox());
+//            adapterBox.notifyDataSetChanged();
+        }
+    }
+
     public void btnAdd(){
         if(typeList == clickInItem){
             Intent intent = new Intent(this, ActivityAddEditItem.class);
             startActivityForResult(intent, clickInAdd);
         }else if(typeList == clickInBox) {
             Intent intent = new Intent(this, ActivityAddEditBox.class);
+            startActivityForResult(intent, clickInAdd);
+        }else if(typeList == clickInOrder) {
+            Intent intent = new Intent(this, ActivityAddEditOrder.class);
             startActivityForResult(intent, clickInAdd);
         }
 
@@ -176,6 +215,9 @@ public class MainActivity2 extends AppCompatActivity {
             startActivityForResult(intent, clickInEdit);
         }else if(typeList == clickInBox) {
             Intent intent = new Intent(this, ActivityAddEditBox.class);
+            startActivityForResult(intent, clickInEdit);
+        }else if(typeList == clickInOrder) {
+            Intent intent = new Intent(this, ActivityAddEditOrder.class);
             startActivityForResult(intent, clickInEdit);
         }
     }
