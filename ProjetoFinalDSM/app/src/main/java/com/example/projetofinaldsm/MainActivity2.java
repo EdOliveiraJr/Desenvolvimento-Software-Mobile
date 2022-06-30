@@ -30,10 +30,10 @@ public class MainActivity2 extends AppCompatActivity {
     public static int clickInAdd = 4;
     public static int clickInEdit = 5;
 
-
     private int typeList;
 
     public static int index;
+
     public RepositoryListItem repositoryListItem;
     public RepositoryListBox repositoryListBox;
     public RepositoryListOrder repositoryListOrder;
@@ -126,21 +126,42 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == clickInAdd && resultCode == ActivityAddEditItem.clickInSave){
-            repositoryListItem = ActivityAddEditItem.repositoryListItem;
-            listItem.clear();
-            listItem.addAll(repositoryListItem.getListItem());
+//        if(requestCode == clickInAdd && resultCode == ActivityAddEditItem.clickInSave){
+//            repositoryListItem = ActivityAddEditItem.repositoryListItem;
+//            listItem.clear();
+//            listItem.addAll(repositoryListItem.getListItem());
+//
+//        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditBox.clickInSave){
+//            repositoryListBox = ActivityAddEditBox.repositoryListBox;
+//            listBox.clear();
+//            listBox.addAll(repositoryListBox.getListBox());
+//
+//        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditOrder.clickInSave){
+//            repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
+//            listOrder.clear();
+//            listOrder.addAll(repositoryListOrder.getListOrder());
+//        }
+        if(requestCode == clickInAdd){
+            if(resultCode == ActivityAddEditItem.clickInSave){
+                repositoryListItem = ActivityAddEditItem.repositoryListItem;
+                listItem.clear();
+                listItem.addAll(repositoryListItem.getListItem());
 
-        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditBox.clickInSave){
-            repositoryListBox = ActivityAddEditBox.repositoryListBox;
-            listBox.clear();
-            listBox.addAll(repositoryListBox.getListBox());
+            }else if(resultCode == ActivityAddEditBox.clickInSave ){
+                repositoryListBox = ActivityAddEditBox.repositoryListBox;
+                listBox.clear();
+                listBox.addAll(repositoryListBox.getListBox());
 
-        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditOrder.clickInSave){
-            repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
-            listOrder.clear();
-            listOrder.addAll(repositoryListOrder.getListOrder());
+            }else if(resultCode == ActivityAddEditOrder.clickInSave){
+                repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
+                listOrder.clear();
+                listOrder.addAll(repositoryListOrder.getListOrder());
+
+            }else if (resultCode == ActivityAddEditBox.clickInAddItemBox){
+
+            }
         }
+
     }
 
     public void btnItem(View view){
@@ -153,6 +174,14 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setAdapter(adapterItem);
             listView.setSelector(android.R.color.holo_orange_dark);
             adapterItem.notifyDataSetChanged();
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Toast.makeText(MainActivity2.this, ""+listItem.get(i).toString(), Toast.LENGTH_SHORT);
+                    index = i;
+                }
+            });
 //
 //            repositoryListItem = ActivityAddEditItem.repositoryListItem;
 //            listItem.clear();
@@ -171,6 +200,15 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setAdapter(adapterBox);
             listView.setSelector(android.R.color.holo_orange_dark);
             adapterBox.notifyDataSetChanged();
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Toast.makeText(MainActivity2.this, ""+listBox.get(i).toString(), Toast.LENGTH_SHORT);
+                    index = i;
+                }
+            });
+
 //
 //            repositoryListBox = ActivityAddEditBox.repositoryListBox;
 //            listBox.clear();
@@ -187,6 +225,14 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setAdapter(adapterOrder);
             listView.setSelector(android.R.color.holo_orange_dark);
             adapterOrder.notifyDataSetChanged();
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Toast.makeText(MainActivity2.this, ""+listOrder.get(i).toString(), Toast.LENGTH_SHORT);
+                    index = i;
+                }
+            });
 //
 //            repositoryListBox = ActivityAddEditBox.repositoryListBox;
 //            listBox.clear();
@@ -212,9 +258,38 @@ public class MainActivity2 extends AppCompatActivity {
     public void btnEdit(){
         if(typeList == clickInItem){
             Intent intent = new Intent(this, ActivityAddEditItem.class);
+
+            String i = Integer.toString(index);
+            String id = Integer.toString(listItem.get(index).getId());
+            String name = listItem.get(index).getName();
+            String description = listItem.get(index).getDescription();
+            String price = Double.toString(listItem.get(index).getPrice());
+
+            intent.putExtra("i", i);
+            intent.putExtra("id", id);
+            intent.putExtra("name", name);
+            intent.putExtra("description", description);
+            intent.putExtra("price", price);
+
             startActivityForResult(intent, clickInEdit);
+//            Toast.makeText(MainActivity2.this, "Selecione um item para editar", Toast.LENGTH_SHORT).show();
         }else if(typeList == clickInBox) {
             Intent intent = new Intent(this, ActivityAddEditBox.class);
+
+            String i = Integer.toString(index);
+            String id = Integer.toString(listBox.get(index).getId());
+            String name = listBox.get(index).getName();
+            String description = listBox.get(index).getDescription();
+            String price = Double.toString(listBox.get(index).getPrice());
+            ArrayList listItemBox = listBox.get(index).getListItem();
+
+            intent.putExtra("i", i);
+            intent.putExtra("id", id);
+            intent.putExtra("name", name);
+            intent.putExtra("description", description);
+            intent.putExtra("price", price);
+            intent.putExtra("listItemBox", listItemBox);
+
             startActivityForResult(intent, clickInEdit);
         }else if(typeList == clickInOrder) {
             Intent intent = new Intent(this, ActivityAddEditOrder.class);

@@ -22,8 +22,8 @@ import com.example.projetofinaldsm.repository.RepositoryListOrder;
 import java.util.ArrayList;
 
 public class ActivityAddEditOrder extends AppCompatActivity {
-    public static int clickInSave = 8;
-    public static int clickInCancel = 9;
+    public static int clickInSave = 9;
+    public static int clickInCancel = 10;
 
     public static RepositoryListOrder repositoryListOrder;
     public static ArrayList<Order> listOrder;
@@ -32,7 +32,7 @@ public class ActivityAddEditOrder extends AppCompatActivity {
     public static ListView listViewOrder;
 
     TextView txtId;
-    EditText edtCLientName;
+    EditText edtClientName;
     EditText edtAddress;
     EditText edtObservation;
     EditText edtPrice;
@@ -45,7 +45,7 @@ public class ActivityAddEditOrder extends AppCompatActivity {
         repositoryListOrder = new RepositoryListOrder();
 
         txtId =  findViewById(R.id.txtId_ActAddEdtOrder);
-        edtCLientName = findViewById(R.id.edtNameOrder);
+        edtClientName = findViewById(R.id.edtNameOrder);
         edtAddress = findViewById(R.id.edtAddressOrder);
         edtObservation = findViewById(R.id.edtObservationOrder);
         edtPrice = findViewById(R.id.edtPriceBox);
@@ -98,7 +98,7 @@ public class ActivityAddEditOrder extends AppCompatActivity {
 
     public void btnAddOrder() {
         String id =  txtId.getText().toString();
-        String clientName = edtCLientName.getText().toString();
+        String clientName = edtClientName.getText().toString();
         String address = edtAddress.getText().toString();
         String observation = edtObservation.getText().toString();
 

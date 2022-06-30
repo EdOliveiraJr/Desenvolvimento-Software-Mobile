@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class ActivityAddEditBox extends AppCompatActivity {
     public static int clickInSave = 6;
     public static int clickInCancel = 7;
+    public static int clickInAddItemBox = 8;
 
     public static RepositoryListBox  repositoryListBox;
     public static ArrayList<Box> listBox;
@@ -139,6 +140,10 @@ public class ActivityAddEditBox extends AppCompatActivity {
         setResult(clickInSave, intent);
         finish();
         Toast.makeText(ActivityAddEditBox.this, "Alteração Salva", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btnAddItemBox(View view){
+
     }
 
     public void btnCancelBox(View view){
