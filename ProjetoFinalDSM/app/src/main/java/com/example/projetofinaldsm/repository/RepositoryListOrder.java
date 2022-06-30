@@ -11,7 +11,7 @@ public class RepositoryListOrder {
         this.listOrder = new ArrayList<>();
     }
 
-    public void setBoxListOrder(Order order){
+    public void setListOrder(Order order){
         listOrder.add(order);
     }
 

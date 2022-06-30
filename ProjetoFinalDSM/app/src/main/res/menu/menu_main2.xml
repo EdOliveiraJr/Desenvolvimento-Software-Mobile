@@ -8,18 +8,6 @@
         app:showAsAction="always"
         android:iconTint="@color/white"
         />
-    <item android:id="@+id/edit"
-        android:title="Editar"
-        android:icon="@drawable/ic_action_edit"
-        app:showAsAction="always"
-        android:iconTint="@color/white"
-        />
-    <item android:id="@+id/delete"
-        android:title="Deletar"
-        android:icon="@drawable/ic_action_delete"
-        app:showAsAction="always"
-        android:iconTint="@color/white"
-        />
     <item android:id="@+id/settings"
         android:title="Configurações"
         />

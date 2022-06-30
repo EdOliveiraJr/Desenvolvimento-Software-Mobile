@@ -23,13 +23,13 @@ import java.sql.Array;
 import java.util.ArrayList;
 
 public class ActivityAddEditBox extends AppCompatActivity {
-    public static int clickInSave = 6;
-    public static int clickInCancel = 7;
-    public static int clickInAddItemBox = 8;
+    public static int clickInSave = 8;
+    public static int clickInCancel = 9;
+    public static int clickInAddItemBox = 10;
 
-    public static RepositoryListBox  repositoryListBox;
-    public static ArrayList<Box> listBox;
     public static int index = -1;
+
+    public static RepositoryListBox  repositoryListBox = new RepositoryListBox();;
     public static ArrayAdapter adapterBox;
     public static ListView listViewBox;
 
@@ -48,10 +48,23 @@ public class ActivityAddEditBox extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtDescriptionBox);
         edtPrice = findViewById(R.id.edtPriceBox);
 
-        listBox = new ArrayList<>();
-        repositoryListBox = new RepositoryListBox();
+        if(getIntent().getExtras() != null){
 
-        adapterBox = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listBox);
+            int i = (int) getIntent().getExtras().get("index");
+
+            String id = Integer.toString(repositoryListBox.getListBox().get(i).getId());
+            String name = repositoryListBox.getListBox().get(i).getName();
+            String description = repositoryListBox.getListBox().get(i).getDescription();
+            String price = Double.toString(repositoryListBox.getListBox().get(i).getPrice());
+
+            txtId.setText(id);
+            edtName.setText(name);
+            edtDescription.setText(description);
+            edtPrice.setText(price);
+
+        }
+
+        adapterBox = new ArrayAdapter(this, android.R.layout.simple_list_item_1, repositoryListBox.getListBox());
         listViewBox = (ListView) findViewById(R.id.ListViewBox);
         listViewBox.setAdapter(adapterBox);
         listViewBox.setSelector(android.R.color.holo_orange_dark);
@@ -59,7 +72,7 @@ public class ActivityAddEditBox extends AppCompatActivity {
         listViewBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ActivityAddEditBox.this, ""+listBox.get(i).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityAddEditBox.this, ""+repositoryListBox.getListBox().get(i).toString(), Toast.LENGTH_SHORT).show();
                 index = i;
             }
         });
@@ -96,23 +109,12 @@ public class ActivityAddEditBox extends AppCompatActivity {
     }
 
     public void btnAddBox() {
-        String id =  txtId.getText().toString();
         String name = edtName.getText().toString();
         String description = edtDescription.getText().toString();
-        String price = edtPrice.getText().toString();
-
-//        intent.putExtra("id", id);
-//        intent.putExtra("name", name);
-//        intent.putExtra("description", description);
-//        intent.putExtra("price", price);
 
         Box box = new Box(name, description);
 
         repositoryListBox.setBoxListBox(box);
-
-        adapterBox.clear();
-
-        listBox.addAll(repositoryListBox.getListBox());
 
         adapterBox.notifyDataSetChanged();
     }

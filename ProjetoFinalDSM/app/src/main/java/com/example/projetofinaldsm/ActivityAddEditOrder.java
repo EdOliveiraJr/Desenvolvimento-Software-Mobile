@@ -15,19 +15,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projetofinaldsm.model.Box;
 import com.example.projetofinaldsm.model.Order;
 import com.example.projetofinaldsm.repository.RepositoryListOrder;
 
-import java.util.ArrayList;
-
 public class ActivityAddEditOrder extends AppCompatActivity {
-    public static int clickInSave = 9;
-    public static int clickInCancel = 10;
+    public static int clickInSave = 11;
+    public static int clickInCancel = 12;
 
-    public static RepositoryListOrder repositoryListOrder;
-    public static ArrayList<Order> listOrder;
     public static int index = -1;
+
+    public static RepositoryListOrder repositoryListOrder = new RepositoryListOrder();
     public static ArrayAdapter adapterOrder;
     public static ListView listViewOrder;
 
@@ -37,23 +34,37 @@ public class ActivityAddEditOrder extends AppCompatActivity {
     EditText edtObservation;
     EditText edtPrice;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edt_order);
 
-        repositoryListOrder = new RepositoryListOrder();
-
         txtId =  findViewById(R.id.txtId_ActAddEdtOrder);
         edtClientName = findViewById(R.id.edtNameOrder);
         edtAddress = findViewById(R.id.edtAddressOrder);
         edtObservation = findViewById(R.id.edtObservationOrder);
-        edtPrice = findViewById(R.id.edtPriceBox);
+        edtPrice = findViewById(R.id.edtPriceOrder);
 
-        listOrder = new ArrayList<>();
-        repositoryListOrder = new RepositoryListOrder();
+        if(getIntent().getExtras() != null){
 
-        adapterOrder = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listOrder);
+            int i = (int) getIntent().getExtras().get("index");
+
+            String id = Integer.toString(repositoryListOrder.getListOrder().get(i).getId());
+            String client = repositoryListOrder.getListOrder().get(i).getNameClient();
+            String address = repositoryListOrder.getListOrder().get(i).getDeliveryAddress();
+            String observations = repositoryListOrder.getListOrder().get(i).getObservations();
+            String price = Double.toString(repositoryListOrder.getListOrder().get(i).getPrice());
+
+            txtId.setText(id);
+            edtClientName.setText(client);
+            edtAddress.setText(address);
+            edtObservation.setText(observations);
+            edtPrice.setText(price);
+
+        }
+
+        adapterOrder = new ArrayAdapter(this, android.R.layout.simple_list_item_1, repositoryListOrder.getListOrder());
         listViewOrder = (ListView) findViewById(R.id.ListViewOrder);
         listViewOrder.setAdapter(adapterOrder);
         listViewOrder.setSelector(android.R.color.holo_orange_dark);
@@ -61,7 +72,7 @@ public class ActivityAddEditOrder extends AppCompatActivity {
         listViewOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ActivityAddEditOrder.this, ""+listOrder.get(i).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityAddEditOrder.this, ""+repositoryListOrder.getListOrder().get(i).toString(), Toast.LENGTH_SHORT).show();
                 index = i;
             }
         });
@@ -97,29 +108,19 @@ public class ActivityAddEditOrder extends AppCompatActivity {
     }
 
     public void btnAddOrder() {
-        String id =  txtId.getText().toString();
         String clientName = edtClientName.getText().toString();
         String address = edtAddress.getText().toString();
         String observation = edtObservation.getText().toString();
 
-//        intent.putExtra("id", id);
-//        intent.putExtra("name", name);
-//        intent.putExtra("description", description);
-//        intent.putExtra("price", price);
-
         Order order = new Order(clientName, address, observation);
 
-        repositoryListOrder.setBoxListOrder(order);
-
-        adapterOrder.clear();
-
-        listOrder.addAll(repositoryListOrder.getListOrder());
+        repositoryListOrder.setListOrder(order);
 
         adapterOrder.notifyDataSetChanged();
     }
 
     public void btnEditOrder(){
-        // TODO: 26/06/2022
+
     }
 
     public void btnDeleteOrder(){
@@ -137,10 +138,10 @@ public class ActivityAddEditOrder extends AppCompatActivity {
     }
 
     public void btnSaveOrder(View view) {
-        Intent intent = new Intent();
-        setResult(clickInSave, intent);
-        finish();
-        Toast.makeText(ActivityAddEditOrder.this, "Alteração Salva", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            setResult(clickInSave, intent);
+            finish();
+            Toast.makeText(ActivityAddEditOrder.this, "Alteração Salva", Toast.LENGTH_SHORT).show();
     }
 
     public void btnCancelOrder(View view){

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 public class Box {
     private static int count_id = 0;
-    ArrayList<Item> listItem;
     private final int id;
     private String name;
     private String description;
     private Double price;
+    private ArrayList<Item> listItem;
 
     public Box(String name, String description) {
         this.id = count_id++;
         this.name = name;
         this.description = description;
+        price = 0.0;
         listItem = new ArrayList<>();
     }
 
@@ -65,6 +66,7 @@ public class Box {
                 "\nid=" + id +
                 "\n name='" + name + '\'' +
                 "\n description='" + description + '\'' +
-                "\n ListItem=" + listItem;
+                "\n ListItem=" + listItem +
+                "\n Price=" + price;
     }
 }

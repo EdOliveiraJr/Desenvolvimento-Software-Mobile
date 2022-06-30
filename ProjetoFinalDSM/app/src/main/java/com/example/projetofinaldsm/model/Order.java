@@ -17,6 +17,7 @@ public class Order {
         this.nameClient = nameClient;
         this.deliveryAddress = deliveryAddress;
         this.observations = observations;
+        price = 0.0;
         listBox = new ArrayList<>();
         extraItem = new ArrayList<>();
     }

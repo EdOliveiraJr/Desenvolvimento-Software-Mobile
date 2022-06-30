@@ -27,19 +27,13 @@ public class MainActivity2 extends AppCompatActivity {
     public static int clickInItem = 1;
     public static int clickInBox = 2;
     public static int clickInOrder = 3;
+
     public static int clickInAdd = 4;
     public static int clickInEdit = 5;
 
     private int typeList;
 
     public static int index;
-
-    public RepositoryListItem repositoryListItem;
-    public RepositoryListBox repositoryListBox;
-    public RepositoryListOrder repositoryListOrder;
-    public static ArrayList<Order> listOrder;
-    public static ArrayList<Box> listBox;
-    public static ArrayList<Item> listItem;
 
     public static ArrayAdapter adapterItem;
     public static ArrayAdapter adapterBox;
@@ -54,43 +48,12 @@ public class MainActivity2 extends AppCompatActivity {
         index = -1;
         typeList = -1;
 
-        listBox = new ArrayList<>();
-        listItem = new ArrayList<>();
-        listOrder = new ArrayList<>();
-
-        repositoryListOrder = new RepositoryListOrder();
-        repositoryListItem = new RepositoryListItem();
-        repositoryListBox = new RepositoryListBox();
-
-        adapterItem = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItem);
-        adapterBox = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listBox);
-        adapterOrder = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listOrder);
+        adapterItem = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ActivityAddEditItem.repositoryListItem.getListItem());
+        adapterBox = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ActivityAddEditBox.repositoryListBox.getListBox());
+        adapterOrder = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ActivityAddEditOrder.repositoryListOrder.getListOrder());
 
         listView = (ListView) findViewById(R.id.listViewBoxMain2);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity2.this, ""+listItem.get(i).toString(), Toast.LENGTH_SHORT);
-                index = i;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity2.this, ""+listBox.get(i).toString(), Toast.LENGTH_SHORT);
-                index = i;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity2.this, ""+listOrder.get(i).toString(), Toast.LENGTH_SHORT);
-                index = i;
-            }
-        });
     }
 
     @Override
@@ -107,12 +70,6 @@ public class MainActivity2 extends AppCompatActivity {
             case R.id.add:
                 btnAdd();
                 break;
-            case R.id.edit:
-                btnEdit();
-                break;
-            case R.id.delete:
-                btnDelete();
-                break;
             case R.id.settings:
                 btnSettings();
                 break;
@@ -126,47 +83,49 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == clickInAdd && resultCode == ActivityAddEditItem.clickInSave){
-//            repositoryListItem = ActivityAddEditItem.repositoryListItem;
-//            listItem.clear();
-//            listItem.addAll(repositoryListItem.getListItem());
-//
-//        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditBox.clickInSave){
-//            repositoryListBox = ActivityAddEditBox.repositoryListBox;
-//            listBox.clear();
-//            listBox.addAll(repositoryListBox.getListBox());
-//
-//        }else if (requestCode == clickInAdd && resultCode == ActivityAddEditOrder.clickInSave){
-//            repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
-//            listOrder.clear();
-//            listOrder.addAll(repositoryListOrder.getListOrder());
-//        }
+
         if(requestCode == clickInAdd){
             if(resultCode == ActivityAddEditItem.clickInSave){
-                repositoryListItem = ActivityAddEditItem.repositoryListItem;
-                listItem.clear();
-                listItem.addAll(repositoryListItem.getListItem());
+                listView.setAdapter(adapterItem);
+                listView.setSelector(android.R.color.holo_orange_dark);
+                adapterItem.notifyDataSetChanged();
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(MainActivity2.this, ""+ActivityAddEditItem.repositoryListItem.getListItem().get(i).toString(), Toast.LENGTH_SHORT);
+                        index = i;
+                    }
+                });
 
             }else if(resultCode == ActivityAddEditBox.clickInSave ){
-                repositoryListBox = ActivityAddEditBox.repositoryListBox;
-                listBox.clear();
-                listBox.addAll(repositoryListBox.getListBox());
-
+                listView.setAdapter(adapterBox);
+                listView.setSelector(android.R.color.holo_orange_dark);
+                adapterBox.notifyDataSetChanged();
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(MainActivity2.this, ""+ ActivityAddEditBox.repositoryListBox.getListBox().get(i).toString(), Toast.LENGTH_SHORT);
+                        index = i;
+                    }
+                });
             }else if(resultCode == ActivityAddEditOrder.clickInSave){
-                repositoryListOrder = ActivityAddEditOrder.repositoryListOrder;
-                listOrder.clear();
-                listOrder.addAll(repositoryListOrder.getListOrder());
-
-            }else if (resultCode == ActivityAddEditBox.clickInAddItemBox){
-
+                listView.setAdapter(adapterOrder);
+                listView.setSelector(android.R.color.holo_orange_dark);
+                adapterOrder.notifyDataSetChanged();
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(MainActivity2.this, ""+ActivityAddEditOrder.repositoryListOrder.getListOrder().get(i).toString(), Toast.LENGTH_SHORT);
+                        index = i;
+                    }
+                });
             }
         }
-
     }
 
     public void btnItem(View view){
 
-        if (listItem.isEmpty()){
+        if (ActivityAddEditItem.repositoryListItem.getListItem().isEmpty()){
             this.typeList = clickInItem;
         }else{
             this.typeList = clickInItem;
@@ -178,22 +137,16 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(MainActivity2.this, ""+listItem.get(i).toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity2.this, ""+ActivityAddEditItem.repositoryListItem.getListItem().get(i).toString(), Toast.LENGTH_SHORT);
                     index = i;
                 }
             });
-//
-//            repositoryListItem = ActivityAddEditItem.repositoryListItem;
-//            listItem.clear();
-//            listItem.addAll(repositoryListItem.getListItem());
-//            adapterItem.notifyDataSetChanged();
-
         }
 
     }
 
     public void btnBox(View view){
-        if(listBox.isEmpty()) {
+        if(ActivityAddEditBox.repositoryListBox.getListBox().isEmpty()) {
             this.typeList = clickInBox;
         }else{
             this.typeList = clickInBox;
@@ -204,21 +157,15 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(MainActivity2.this, ""+listBox.get(i).toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity2.this, ""+ ActivityAddEditBox.repositoryListBox.getListBox().get(i).toString(), Toast.LENGTH_SHORT);
                     index = i;
                 }
             });
-
-//
-//            repositoryListBox = ActivityAddEditBox.repositoryListBox;
-//            listBox.clear();
-//            listBox.addAll(repositoryListBox.getListBox());
-//            adapterBox.notifyDataSetChanged();
         }
     }
 
     public void btnOrder(View view) {
-        if(listBox.isEmpty()) {
+        if(ActivityAddEditOrder.repositoryListOrder.getListOrder().isEmpty()) {
             this.typeList = clickInOrder;
         }else{
             this.typeList = clickInOrder;
@@ -229,15 +176,10 @@ public class MainActivity2 extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(MainActivity2.this, ""+listOrder.get(i).toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity2.this, ""+ActivityAddEditOrder.repositoryListOrder.getListOrder().get(i).toString(), Toast.LENGTH_SHORT);
                     index = i;
                 }
             });
-//
-//            repositoryListBox = ActivityAddEditBox.repositoryListBox;
-//            listBox.clear();
-//            listBox.addAll(repositoryListBox.getListBox());
-//            adapterBox.notifyDataSetChanged();
         }
     }
 
@@ -255,52 +197,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    public void btnEdit(){
-        if(typeList == clickInItem){
-            Intent intent = new Intent(this, ActivityAddEditItem.class);
-
-            String i = Integer.toString(index);
-            String id = Integer.toString(listItem.get(index).getId());
-            String name = listItem.get(index).getName();
-            String description = listItem.get(index).getDescription();
-            String price = Double.toString(listItem.get(index).getPrice());
-
-            intent.putExtra("i", i);
-            intent.putExtra("id", id);
-            intent.putExtra("name", name);
-            intent.putExtra("description", description);
-            intent.putExtra("price", price);
-
-            startActivityForResult(intent, clickInEdit);
-//            Toast.makeText(MainActivity2.this, "Selecione um item para editar", Toast.LENGTH_SHORT).show();
-        }else if(typeList == clickInBox) {
-            Intent intent = new Intent(this, ActivityAddEditBox.class);
-
-            String i = Integer.toString(index);
-            String id = Integer.toString(listBox.get(index).getId());
-            String name = listBox.get(index).getName();
-            String description = listBox.get(index).getDescription();
-            String price = Double.toString(listBox.get(index).getPrice());
-            ArrayList listItemBox = listBox.get(index).getListItem();
-
-            intent.putExtra("i", i);
-            intent.putExtra("id", id);
-            intent.putExtra("name", name);
-            intent.putExtra("description", description);
-            intent.putExtra("price", price);
-            intent.putExtra("listItemBox", listItemBox);
-
-            startActivityForResult(intent, clickInEdit);
-        }else if(typeList == clickInOrder) {
-            Intent intent = new Intent(this, ActivityAddEditOrder.class);
-            startActivityForResult(intent, clickInEdit);
-        }
-    }
-
-    public void btnDelete(){
-        // TODO: 26/06/2022  
-    }
-
     public void btnSettings(){
         // TODO: 26/06/2022  
     }
@@ -308,6 +204,5 @@ public class MainActivity2 extends AppCompatActivity {
     public void btnAbout(){
         Intent intent = new Intent(this, ActivityAbout.class);
         startActivity(intent);
-
     }
 }

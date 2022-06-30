@@ -21,13 +21,13 @@ import com.example.projetofinaldsm.repository.RepositoryListItem;
 import java.util.ArrayList;
 
 public class ActivityAddEditItem extends AppCompatActivity {
-    public static int clickInSave = 1;
-    public static int clickInCancel = 2;
+    public static int clickInSave = 6;
+    public static int clickInCancel = 7;
 
     public static int index = -1;
-    public static RepositoryListItem repositoryListItem;
-    public static ArrayList<Item> listItem;
-    public ListView listViewItem;
+
+    public static RepositoryListItem repositoryListItem = new RepositoryListItem();
+    public static ListView listViewItem;
     public static ArrayAdapter adapterItem;
 
     EditText edtName;
@@ -45,11 +45,16 @@ public class ActivityAddEditItem extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtDescriptionItem);
         edtPrice = findViewById(R.id.edtPriceItem);
 
+        txtID.setText("");
+
         if(getIntent().getExtras() != null){
-            String id = (String) getIntent().getExtras().get("id");
-            String name = (String) getIntent().getExtras().get("name");
-            String description = (String) getIntent().getExtras().get("description");
-            String price = (String) getIntent().getExtras().get("price");
+
+            int i = (int) getIntent().getExtras().get("index");
+
+            String id = Integer.toString(repositoryListItem.getListItem().get(i).getId());
+            String name = repositoryListItem.getListItem().get(i).getName();
+            String description = repositoryListItem.getListItem().get(i).getDescription();
+            String price = Double.toString(repositoryListItem.getListItem().get(i).getPrice());
 
             txtID.setText(id);
             edtName.setText(name);
@@ -58,10 +63,7 @@ public class ActivityAddEditItem extends AppCompatActivity {
 
         }
 
-        listItem = new ArrayList<>();
-        repositoryListItem = new RepositoryListItem();
-
-        adapterItem = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItem);
+        adapterItem = new ArrayAdapter(this, android.R.layout.simple_list_item_1, repositoryListItem.getListItem());
         listViewItem = (ListView) findViewById(R.id.ListViewItem);
         listViewItem.setAdapter(adapterItem);
         listViewItem.setSelector(android.R.color.holo_orange_dark);
@@ -69,7 +71,7 @@ public class ActivityAddEditItem extends AppCompatActivity {
         listViewItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ActivityAddEditItem.this, ""+listItem.get(i).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityAddEditItem.this, ""+repositoryListItem.getListItem().get(i).toString() + "ind: " + i, Toast.LENGTH_SHORT).show();
                 index = i;
             }
         });
@@ -107,33 +109,38 @@ public class ActivityAddEditItem extends AppCompatActivity {
     }
 
     public void btnAddItem(){
-        String id =  txtID.getText().toString();
         String name = edtName.getText().toString();
         String description = edtDescription.getText().toString();
         String price = edtPrice.getText().toString();
 
-//        intent.putExtra("id", id);
-//        intent.putExtra("name", name);
-//        intent.putExtra("description", description);
-//        intent.putExtra("price", price);
-
         Item item = new Item(name, description, Double.parseDouble(price));
-
         repositoryListItem.setItemLisItem(item);
-
-        adapterItem.clear();
-
-        listItem.addAll(repositoryListItem.getListItem());
-
         adapterItem.notifyDataSetChanged();
     }
 
     public void btnEditItem(){
-        // TODO: 26/06/2022
+        if(index < 0) {
+            Toast.makeText(ActivityAddEditItem.this, "Selecione um item para editar", Toast.LENGTH_SHORT).show();
+        }else{
+            String name = edtName.getText().toString();
+            String description = edtDescription.getText().toString();
+            String price = edtPrice.getText().toString();
+
+            repositoryListItem.getListItem().get(index).setNome(name);
+            repositoryListItem.getListItem().get(index).setDescription(description);
+            repositoryListItem.getListItem().get(index).setPrice(Double.parseDouble(price));
+            adapterItem.notifyDataSetChanged();
+        }
+
     }
 
     public void btnDeleteItem(){
-        // TODO: 26/06/2022
+        if(index < 0){
+            Toast.makeText(ActivityAddEditItem.this, "Selecione um item para remover", Toast.LENGTH_SHORT).show();
+        }else{
+            repositoryListItem.getListItem().remove(index);
+            adapterItem.notifyDataSetChanged();
+        }
     }
 
     public void btnSettingsItem(){
