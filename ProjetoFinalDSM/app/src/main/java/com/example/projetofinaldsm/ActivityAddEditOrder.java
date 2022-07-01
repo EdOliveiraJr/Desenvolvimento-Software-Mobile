@@ -74,6 +74,18 @@ public class ActivityAddEditOrder extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(ActivityAddEditOrder.this, ""+repositoryListOrder.getListOrder().get(i).toString(), Toast.LENGTH_SHORT).show();
                 index = i;
+
+                String id = Integer.toString(repositoryListOrder.getListOrder().get(i).getId());
+                String client = repositoryListOrder.getListOrder().get(i).getNameClient();
+                String address = repositoryListOrder.getListOrder().get(i).getDeliveryAddress();
+                String observations = repositoryListOrder.getListOrder().get(i).getObservations();
+                String price = Double.toString(repositoryListOrder.getListOrder().get(i).getPrice());
+
+                txtId.setText(id);
+                edtClientName.setText(client);
+                edtAddress.setText(address);
+                edtObservation.setText(observations);
+                edtPrice.setText(price);
             }
         });
     }
@@ -120,11 +132,30 @@ public class ActivityAddEditOrder extends AppCompatActivity {
     }
 
     public void btnEditOrder(){
+        if(index < 0){
+            Toast.makeText(ActivityAddEditOrder.this, "Selecione um pedido para editar", Toast.LENGTH_SHORT).show();
+        }else{
+            String clientName = edtClientName.getText().toString();
+            String address = edtAddress.getText().toString();
+            String observation = edtObservation.getText().toString();
 
+            repositoryListOrder.getListOrder().get(index).setNameClient(clientName);
+            repositoryListOrder.getListOrder().get(index).setDeliveryAddress(address);
+            repositoryListOrder.getListOrder().get(index).setObservations(observation);
+            adapterOrder.notifyDataSetChanged();
+            index = -1;
+
+        }
     }
 
     public void btnDeleteOrder(){
-        // TODO: 26/06/2022
+        if(index < 0){
+            Toast.makeText(ActivityAddEditOrder.this, "Selecione um item para remover", Toast.LENGTH_SHORT).show();
+        }else{
+            repositoryListOrder.getListOrder().remove(index);
+            adapterOrder.notifyDataSetChanged();
+            index = -1;
+        }
     }
 
     public void btnSettingsOrder(){

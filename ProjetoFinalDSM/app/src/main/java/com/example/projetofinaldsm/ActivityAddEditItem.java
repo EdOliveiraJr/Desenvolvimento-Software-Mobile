@@ -73,6 +73,16 @@ public class ActivityAddEditItem extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(ActivityAddEditItem.this, ""+repositoryListItem.getListItem().get(i).toString() + "ind: " + i, Toast.LENGTH_SHORT).show();
                 index = i;
+
+                String id = Integer.toString(repositoryListItem.getListItem().get(i).getId());
+                String name = repositoryListItem.getListItem().get(i).getName();
+                String description = repositoryListItem.getListItem().get(i).getDescription();
+                String price = Double.toString(repositoryListItem.getListItem().get(i).getPrice());
+
+                txtID.setText(id);
+                edtName.setText(name);
+                edtDescription.setText(description);
+                edtPrice.setText(price);
             }
         });
 
@@ -130,6 +140,7 @@ public class ActivityAddEditItem extends AppCompatActivity {
             repositoryListItem.getListItem().get(index).setDescription(description);
             repositoryListItem.getListItem().get(index).setPrice(Double.parseDouble(price));
             adapterItem.notifyDataSetChanged();
+            index = -1;
         }
 
     }
@@ -140,6 +151,7 @@ public class ActivityAddEditItem extends AppCompatActivity {
         }else{
             repositoryListItem.getListItem().remove(index);
             adapterItem.notifyDataSetChanged();
+            index = -1;
         }
     }
 

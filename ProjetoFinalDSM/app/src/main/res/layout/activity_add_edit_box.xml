@@ -108,63 +108,65 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txtSearchItem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/btnSaveBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pesquise e adicione Itens à Cesta"
-                android:textSize="14sp"
+                android:backgroundTint="#9C27B0"
+                android:onClick="btnSaveBox"
+                android:text="Salvar"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <SearchView
-                android:id="@+id/searchItem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/btnAddIntemBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:backgroundTint="#9C27B0"
+                android:onClick="btnAddItemBox"
+                android:text="+ Item"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnSaveBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#9C27B0"
-                    android:onClick="btnSaveBox"
-                    android:text="Salvar"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnCancelBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/my_theme"
+                android:onClick="btnCancelBox"
+                android:text="Cancelar"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnAddIntemBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#9C27B0"
-                    android:onClick="btnAddItemBox"
-                    android:text="+ Item"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnCancelBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/my_theme"
-                    android:onClick="btnCancelBox"
-                    android:text="Cancelar"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btnViewListBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="btnViewListBox"
+                android:text="Box" />
+
+            <Button
+                android:id="@+id/btnViewListItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="btnViewListItem"
+                android:text="Item" />
         </LinearLayout>
 
         <LinearLayout
@@ -175,7 +177,10 @@
             <ListView
                 android:id="@+id/ListViewBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+            </ListView>
+
         </LinearLayout>
 
     </LinearLayout>
