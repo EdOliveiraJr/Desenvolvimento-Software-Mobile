@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "208866284839",
+    "project_id": "navecaotelas",
+    "storage_bucket": "navecaotelas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208866284839:android:415a79a957516582c58502",
+        "android_client_info": {
+          "package_name": "com.example.navegacaotelas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208866284839-bhurm9r3bs52lkmd8e7prjrgdieedjgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhuTDciqXo24OH9ogR113Mc9GaQDPWTDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208866284839-bhurm9r3bs52lkmd8e7prjrgdieedjgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
